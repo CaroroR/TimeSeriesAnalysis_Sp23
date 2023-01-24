@@ -140,18 +140,22 @@ ggplot(inflow_data, aes(x=my_date, y=HP1)) +
 ggplot(inflow_data, aes(x=my_date, y=Inflow)) +
             geom_line(aes(y=HP1,col="HP1")) +
             geom_line(aes(y=HP2,col="HP2")) +
+            geom_line(aes(y=HP2,col="HP3")) +
             xlab("Time") +
-            labs(color="Reservoir")
+            labs(color="Reservoir") #you can also do labs(color="")
 ```
 ## Transforming data into time series object
 
 Many of the functions we will use require a time series object. You can transform your data in a time series using the function *ts()*. Only the columns with reservoir inflow data should be transformed, not the ones with month and year. Your ts object is not a data frame, but like I said we will need it as a ts for some function we will explore in future scripts.
 
 ```{r}
-ts_inflow_data <- ts(inflow_data[,2:(2+nhydro-1)]) #note that we are only transforming columns with inflow data, not the date columns
+ts_inflow_data <- ts(inflow_data[,2:(2+nhydro-1)]) #note that we are only transforming columns with inflow data, not the date columns #2+nhydro-1 is just a more general way of writing if there are more columns of hydro plants and we don't know how many there are #[,"HPS"] or $HP2 also specify columns
 ts_inflow_data
 #plot(ts_inflow_data[,1])
 ```
 
 Note that ts_inflow_data has information on start, end and frequency. We will discuss frequency in future lectures, for now let's just keep the default value for frequency which is 1.
 
+```{r}
+acf(ts_inflow_data[,1])
+```
