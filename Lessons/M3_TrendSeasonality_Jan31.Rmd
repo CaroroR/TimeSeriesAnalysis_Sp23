@@ -94,7 +94,7 @@ Note our last observation is from August 2011 but the data file was filled with 
 
 ```{r}
 #Remove last year by replacing current data frame
-inflow_data <- inflow_data[1:(nobs-412,]
+inflow_data <- inflow_data[1:(nobs-412),]
 
 #update object with number of observations
 nobs <- nobs-12
@@ -109,7 +109,9 @@ Fixed!
 Many of the functions we will use require a time series object. You can transform your data in a time series using the function *ts()*. 
 
 ```{r}
-
+ts_inflow_data <- ts(inflow_data[,2:(2+nhydro-2)]) #note that we are only transforming columns with inflow data, not the date columns
+ts_inflow_data
+#plot(ts_inflow_data[,1])
 ```
 
 
@@ -118,9 +120,27 @@ Many of the functions we will use require a time series object. You can transfor
 Let's use functions Acf() and Pacf() from package "forecast".
 
 ```{r acf}
+# Option 1: The function acf() and pacf() is from package "stats"
+HP1_acf=acf(ts_inflow_data[,1],lag.max=60, type="correlation", plot=TRUE)
 
+HP1_pacf=pacf(ts_inflow_data[,1],lag.max=60, plot=TRUE)
 
+#Option 2: Computing ACF and PACF with package "forecast"
 
+#The next line will output a plot since we have plot=TRUE and also store the acf values in the object
+HP1_acf=Acf(ts_inflow_data[,1],lag.max=60, type="correlation", plot=TRUE)
+
+HP1_pacf=Pacf(ts_inflow_data[,1],lag.max=60, plot=TRUE)
+```
+
+```{r}
+for(i in 1:nhydro){
+  par(mfrow=c(1,2)) #1 row and 2 columns #split plots
+  acf(ts_inflow_data[,i],lag.max=40, main=paste0("HP",i))
+  pacf(ts_inflow_data[,i],lag.max=40, main=paste0("HP",i))
+}
+
+#name<-colames(inflow_data), #main=name[i+1]
 ```
 
 
@@ -130,12 +150,16 @@ Let's identify and remove trend component like we leaned on the recorded videos 
 
 ```{r}
 #Create vector t
-
-
+t<-1:nobs
+iHP=4
 
 #Fit a linear trend to TS of iHP
+linear_trend <- lm(inflow_data[,iHP+1]~t)
+summary(linear_trend)
 
-
+ggplot(inflow_data, aes(x=my_date, y=inflow_data[iHP+1]))+
+  geom_line(color="blue")+
+  geom_smooth(method="lm",color="red")
 ```
 
 
