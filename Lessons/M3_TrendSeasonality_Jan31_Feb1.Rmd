@@ -137,6 +137,7 @@ for(i in 1:nhydro){
 
 Let's identify and remove trend component like we leaned on the recorded videos for M4. You start by fitting a linear model to $Y_t=\beta_0+\beta_1*t+\epsilon_t$. 
 
+
 ```{r}
 #Create vector t
 t <- 1:nobs
@@ -156,6 +157,7 @@ ggplot(inflow_data,aes(x=my_date,y=inflow_data[,iHP+1]))+
 ```{r}
 #remove the trend from series
 
+# coefficient of B1 in lm is level of the series, not average
 
 
 ```
@@ -163,7 +165,9 @@ Note that blue line is our original series, red lien is our trend, green line is
 
 ## Seasonal Component
 
-Now let's shift attention to the seasonal component.
+Now let's shift attention to the seasonal component.The coefficient of the seasonal dummy is the mean of that season. for example, the mean of spring inflow.
+
+Use seasonaldumy function.
 
 ```{r}
 #Use seasonal means model
@@ -179,6 +183,8 @@ Fit trend and seasonal for the other variables HP2, HP3, ...
 ## Stationarity Tests in R
 
 Some test only work for non-seasonal data. So let's create another series with yearly averages for inflow.
+
+ADF test first. null hypothesis states that there is a unit root, means it has stochastic trend. otherwise the dataset is stationary. so if it tells you the dataset has unit root, there is no longer need to fit a linear trend. If it tells you it is stationary, well it has no stochastic trend, but there are other deterministic trend. run Mann Kendall test afterwards.
 
 ```{r}
 #Group data in yearly steps instances
