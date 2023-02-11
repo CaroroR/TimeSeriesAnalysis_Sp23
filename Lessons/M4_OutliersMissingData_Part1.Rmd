@@ -167,7 +167,7 @@ tail(inflow_random,10)
 #Just remove them
 inflow_random <- na.omit(inflow_random)
 
-#Check data again
+#Check data again 
 sum(is.na(inflow_random$inflow))
 head(inflow_random,10)
 tail(inflow_random,10)

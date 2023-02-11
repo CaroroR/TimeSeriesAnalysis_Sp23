@@ -1,0 +1,859 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={M3: Exercise},
+  pdfauthor={Luana Lima},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{M3: Exercise}
+\author{Luana Lima}
+\date{}
+
+\begin{document}
+\maketitle
+
+\hypertarget{setting-r-code-chunk-options}{%
+\subsection{Setting R code chunk
+options}\label{setting-r-code-chunk-options}}
+
+First R code chunk is used for setting the options for all R code
+chunks. The choice echo=TRUE means both code and output will appear on
+report, include = FALSE neither code nor output is printed.
+
+\hypertarget{loading-packages-and-initializing}{%
+\subsection{Loading packages and
+initializing}\label{loading-packages-and-initializing}}
+
+Second R code chunk is for loading packages. By setting message = FALSE,
+the code will appear but not the output.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lubridate)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(forecast)}
+\FunctionTok{library}\NormalTok{(Kendall)}
+\FunctionTok{library}\NormalTok{(tseries)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{importing-data}{%
+\subsection{Importing data}\label{importing-data}}
+
+Let's continue working with our inflow data for reservoirs in Brazil.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Importing time series data from text file\#}
+\NormalTok{raw\_inflow\_data }\OtherTok{\textless{}{-}} \FunctionTok{read.table}\NormalTok{(}\AttributeTok{file=}\StringTok{"../Data/inflowtimeseries.txt"}\NormalTok{,}\AttributeTok{header=}\ConstantTok{FALSE}\NormalTok{,}\AttributeTok{skip=}\DecValTok{0}\NormalTok{)}
+
+\CommentTok{\#Trim the table to include only columns you need}
+\NormalTok{nhydro }\OtherTok{\textless{}{-}} \FunctionTok{ncol}\NormalTok{(raw\_inflow\_data)}\SpecialCharTok{{-}}\DecValTok{2}
+\NormalTok{nobs }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(raw\_inflow\_data) }
+
+\CommentTok{\#If your file does not have header like this one you can add column names after }
+\CommentTok{\#creating the data frame}
+\FunctionTok{colnames}\NormalTok{(raw\_inflow\_data)}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\StringTok{"Month"}\NormalTok{,}\StringTok{"Year"}\NormalTok{, }\StringTok{"HP1"}\NormalTok{, }\StringTok{"HP2"}\NormalTok{,}\StringTok{"HP3"}\NormalTok{,}\StringTok{"HP4"}\NormalTok{, }\StringTok{"HP5"}\NormalTok{,}
+                            \StringTok{"HP6"}\NormalTok{,}\StringTok{"HP7"}\NormalTok{, }\StringTok{"HP8"}\NormalTok{,}\StringTok{"HP9"}\NormalTok{,}\StringTok{"HP10"}\NormalTok{, }\StringTok{"HP11"}\NormalTok{,}\StringTok{"HP12"}\NormalTok{, }
+                            \StringTok{"HP13"}\NormalTok{, }\StringTok{"HP14"}\NormalTok{,}\StringTok{"HP15"}\NormalTok{)}
+
+\CommentTok{\#Checking data}
+\FunctionTok{head}\NormalTok{(raw\_inflow\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Month Year  HP1  HP2  HP3  HP4  HP5  HP6 HP7  HP8 HP9 HP10 HP11 HP12 HP13
+## 1   Jan 1931 4782 4076 2518 2450 2649 1462 450  968 246 2636  452 4870  452
+## 2   Feb 1931 7323 7681 4188  150 2401  758 554  219  74 4158  457 4550  796
+## 3   Mar 1931 8266 5921 3253 2389 3261  707 615  333 123 3847  631 6537  804
+## 4   Apr 1931 6247 4600 2449 1253 2006  469 474  297 113 3291  510 7298  644
+## 5   May 1931 3642 2789 1651 2374 2454 3167 378 3295 938 1956  276 4942  421
+## 6   Jun 1931 2425 2062 1270 2672 2433 3236 301 2547 951 1371  201 2478  305
+##    HP14  HP15
+## 1 17342 31270
+## 2 21530 43827
+## 3 33299 49884
+## 4 34674 43962
+## 5 15184 35156
+## 6  8611 25764
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str}\NormalTok{(raw\_inflow\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    972 obs. of  17 variables:
+##  $ Month: chr  "Jan" "Feb" "Mar" "Apr" ...
+##  $ Year : int  1931 1931 1931 1931 1931 1931 1931 1931 1931 1931 ...
+##  $ HP1  : int  4782 7323 8266 6247 3642 2425 2158 1854 1839 1896 ...
+##  $ HP2  : int  4076 7681 5921 4600 2789 2062 1644 1301 1439 1340 ...
+##  $ HP3  : int  2518 4188 3253 2449 1651 1270 1204 1152 1297 1259 ...
+##  $ HP4  : int  2450 150 2389 1253 2374 2672 1238 605 1016 674 ...
+##  $ HP5  : int  2649 2401 3261 2006 2454 2433 1798 1160 1584 1563 ...
+##  $ HP6  : int  1462 758 707 469 3167 3236 1957 844 1937 1484 ...
+##  $ HP7  : int  450 554 615 474 378 301 256 244 222 355 ...
+##  $ HP8  : int  968 219 333 297 3295 2547 2585 1173 3596 1140 ...
+##  $ HP9  : int  246 74 123 113 938 951 883 404 378 211 ...
+##  $ HP10 : int  2636 4158 3847 3291 1956 1371 1186 1049 1162 1507 ...
+##  $ HP11 : int  452 457 631 510 276 201 213 196 161 208 ...
+##  $ HP12 : int  4870 4550 6537 7298 4942 2478 1905 1647 1453 1358 ...
+##  $ HP13 : int  452 796 804 644 421 305 261 246 250 328 ...
+##  $ HP14 : int  17342 21530 33299 34674 15184 8611 5939 4259 3282 3305 ...
+##  $ HP15 : int  31270 43827 49884 43962 35156 25764 18109 13320 8225 8900 ...
+\end{verbatim}
+
+\hypertarget{creating-the-date-object}{%
+\subsection{Creating the date object}\label{creating-the-date-object}}
+
+Here we use the function my() from package lubridate.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#using package lubridate}
+\NormalTok{my\_date }\OtherTok{\textless{}{-}} \FunctionTok{paste}\NormalTok{(raw\_inflow\_data[,}\DecValTok{1}\NormalTok{],raw\_inflow\_data[,}\DecValTok{2}\NormalTok{],}\AttributeTok{sep=}\StringTok{"{-}"}\NormalTok{)}
+\NormalTok{my\_date }\OtherTok{\textless{}{-}} \FunctionTok{my}\NormalTok{(my\_date)  }\CommentTok{\#function my from package lubridate}
+\FunctionTok{head}\NormalTok{(my\_date)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "1931-01-01" "1931-02-01" "1931-03-01" "1931-04-01" "1931-05-01"
+## [6] "1931-06-01"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#add that to inflow\_data and store in a new data frame }
+\NormalTok{inflow\_data }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(my\_date,raw\_inflow\_data[,}\DecValTok{3}\SpecialCharTok{:}\NormalTok{(}\DecValTok{3}\SpecialCharTok{+}\NormalTok{nhydro}\DecValTok{{-}1}\NormalTok{)])}
+\FunctionTok{head}\NormalTok{(inflow\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      my_date  HP1  HP2  HP3  HP4  HP5  HP6 HP7  HP8 HP9 HP10 HP11 HP12 HP13
+## 1 1931-01-01 4782 4076 2518 2450 2649 1462 450  968 246 2636  452 4870  452
+## 2 1931-02-01 7323 7681 4188  150 2401  758 554  219  74 4158  457 4550  796
+## 3 1931-03-01 8266 5921 3253 2389 3261  707 615  333 123 3847  631 6537  804
+## 4 1931-04-01 6247 4600 2449 1253 2006  469 474  297 113 3291  510 7298  644
+## 5 1931-05-01 3642 2789 1651 2374 2454 3167 378 3295 938 1956  276 4942  421
+## 6 1931-06-01 2425 2062 1270 2672 2433 3236 301 2547 951 1371  201 2478  305
+##    HP14  HP15
+## 1 17342 31270
+## 2 21530 43827
+## 3 33299 49884
+## 4 34674 43962
+## 5 15184 35156
+## 6  8611 25764
+\end{verbatim}
+
+\hypertarget{initial-plots}{%
+\subsection{Initial Plots}\label{initial-plots}}
+
+Initial time series plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#using package ggplot2}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nhydro)\{}
+  \FunctionTok{print}\NormalTok{(}\FunctionTok{ggplot}\NormalTok{(inflow\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{my\_date, }\AttributeTok{y=}\NormalTok{inflow\_data[,(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{i)])) }\SpecialCharTok{+}
+            \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color=}\StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+            \FunctionTok{ylab}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Inflow "}\NormalTok{,}\FunctionTok{colnames}\NormalTok{(inflow\_data)[(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{i)],}\AttributeTok{sep=}\StringTok{""}\NormalTok{)) }
+\NormalTok{        )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-1.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-2.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-3.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-4.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-5.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-6.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-7.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-8.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-9.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-10.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-11.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-12.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-13.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-14.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-3-15.pdf}
+
+\hypertarget{zeros-in-the-end-on-data}{%
+\subsection{Zeros in the end on data}\label{zeros-in-the-end-on-data}}
+
+The initial plots showed that we have zeros in the end of the data set.
+It could be missing observation or observation that haven't been
+observed yet. Use the tail() to find out how many zeros you have and how
+many lines you will need to remove.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#check the final obs on data }
+\FunctionTok{tail}\NormalTok{(inflow\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        my_date  HP1  HP2  HP3  HP4  HP5  HP6 HP7  HP8  HP9 HP10 HP11 HP12 HP13
+## 967 2011-07-01 1883 1426 1560 2930 2105 2988 233 4578 2045  864  119 1068  275
+## 968 2011-08-01 1444 1139 1441 5069 2328 4559 224 4573 2527  827  120  854  251
+## 969 2011-09-01    0    0    0    0    0    0   0    0    0    0    0    0    0
+## 970 2011-10-01    0    0    0    0    0    0   0    0    0    0    0    0    0
+## 971 2011-11-01    0    0    0    0    0    0   0    0    0    0    0    0    0
+## 972 2011-12-01    0    0    0    0    0    0   0    0    0    0    0    0    0
+##     HP14  HP15
+## 967 3910 14162
+## 968 2561  8896
+## 969    0     0
+## 970    0     0
+## 971    0     0
+## 972    0     0
+\end{verbatim}
+
+Note our last observation is from August 2011 but the data file was
+filled with zeros. Let's remove the last four rows of our data set.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Remove last for rows by replacing current data frame}
+\NormalTok{inflow\_data }\OtherTok{\textless{}{-}}\NormalTok{ inflow\_data[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(nobs}\DecValTok{{-}12}\NormalTok{),]}
+
+\CommentTok{\#update object with number of observations}
+\NormalTok{nobs }\OtherTok{\textless{}{-}}\NormalTok{ nobs}\DecValTok{{-}12}
+
+\CommentTok{\#Tail again to check if the rows were correctly removed}
+\FunctionTok{tail}\NormalTok{(inflow\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        my_date  HP1  HP2  HP3  HP4  HP5  HP6 HP7  HP8  HP9 HP10 HP11 HP12 HP13
+## 955 2010-07-01 1539 1214 1481 1978 1828 1449 227 2146 1161  932  124  867  255
+## 956 2010-08-01 1289  886 1173 1490 1452 1238 233 1834  567  715  108  702  233
+## 957 2010-09-01  953  798 1189  928 1564  439 212 1626 1219  645   58  610  216
+## 958 2010-10-01 1411 1265 1580 2748 2268  971 251 1581  476  871  100  738  268
+## 959 2010-11-01 2608 1681 1255 1721 1427  835 309 1109  415 1807  534 1726  336
+## 960 2010-12-01 3338 2608 1921 3373 2203 3386 312 2908  453 3402  604 3064  380
+##     HP14  HP15
+## 955 2746 14043
+## 956 1931  8815
+## 957 1485  6512
+## 958 1900  7492
+## 959 3470 11387
+## 960 7027 17839
+\end{verbatim}
+
+Fixed!
+
+\hypertarget{transforming-data-into-time-series-object}{%
+\subsection{Transforming data into time series
+object}\label{transforming-data-into-time-series-object}}
+
+Many of the functions we will use require a time series object. You can
+transform your data in a time series using the function \emph{ts()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ts\_inflow\_data }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(inflow\_data[,}\DecValTok{2}\SpecialCharTok{:}\NormalTok{(}\DecValTok{2}\SpecialCharTok{+}\NormalTok{nhydro}\DecValTok{{-}1}\NormalTok{)],}\AttributeTok{frequency=}\DecValTok{12}\NormalTok{) }
+\CommentTok{\#note that we are only transforming columns with inflow data, not the date columns  \#start=my\_date[1],end=my\_date[nobs],}
+\FunctionTok{head}\NormalTok{(ts\_inflow\_data,}\DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        HP1  HP2  HP3  HP4  HP5  HP6 HP7  HP8 HP9 HP10 HP11 HP12 HP13  HP14
+## Jan 1 4782 4076 2518 2450 2649 1462 450  968 246 2636  452 4870  452 17342
+## Feb 1 7323 7681 4188  150 2401  758 554  219  74 4158  457 4550  796 21530
+## Mar 1 8266 5921 3253 2389 3261  707 615  333 123 3847  631 6537  804 33299
+## Apr 1 6247 4600 2449 1253 2006  469 474  297 113 3291  510 7298  644 34674
+## May 1 3642 2789 1651 2374 2454 3167 378 3295 938 1956  276 4942  421 15184
+## Jun 1 2425 2062 1270 2672 2433 3236 301 2547 951 1371  201 2478  305  8611
+## Jul 1 2158 1644 1204 1238 1798 1957 256 2585 883 1186  213 1905  261  5939
+## Aug 1 1854 1301 1152  605 1160  844 244 1173 404 1049  196 1647  246  4259
+## Sep 1 1839 1439 1297 1016 1584 1937 222 3596 378 1162  161 1453  250  3282
+## Oct 1 1896 1340 1259  674 1563 1484 355 1140 211 1507  208 1358  328  3305
+## Nov 1 2095 1447 1218  674 1404  835 371  563 252 1996  596 1905  319  6500
+## Dec 1 2725 2479 2013 1278 2272 1073 419  512 197 3015  381 2121  335  8461
+## Jan 2 4679 4021 2435 1259 1995 1044 520  609 159 3978  711 3811  467 14002
+## Feb 2 5535 4082 2262 1895 2996 1454 525 1219 268 2615  316 4681  531 20596
+## Mar 2 4310 3398 2065 1686 2392 1888 674 1332 304 2269  271 3329  501 21638
+##        HP15
+## Jan 1 31270
+## Feb 1 43827
+## Mar 1 49884
+## Apr 1 43962
+## May 1 35156
+## Jun 1 25764
+## Jul 1 18109
+## Aug 1 13320
+## Sep 1  8225
+## Oct 1  8900
+## Nov 1 13766
+## Dec 1 20880
+## Jan 2 33160
+## Feb 2 39791
+## Mar 2 48274
+\end{verbatim}
+
+Note that ts\_inflow\_data has information on start, end and frequency.
+
+\hypertarget{plotting-acf-and-pacf}{%
+\subsection{Plotting ACF and PACF}\label{plotting-acf-and-pacf}}
+
+Let's use functions Acf() and Pacf() from package ``forecast''.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Acf and Pacf for HP1}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nhydro)\{}
+  \FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))  }\CommentTok{\#place plot side by side}
+  \FunctionTok{Acf}\NormalTok{(ts\_inflow\_data[,i],}\AttributeTok{lag.max=}\DecValTok{40}\NormalTok{,}\AttributeTok{main=}\FunctionTok{paste}\NormalTok{(}\StringTok{"Inflows HP"}\NormalTok{,i,}\AttributeTok{sep=}\StringTok{""}\NormalTok{)) }
+  \CommentTok{\# because I am not storing Acf() into any object, I don\textquotesingle{}t need to specify plot=TRUE }
+  \FunctionTok{Pacf}\NormalTok{(ts\_inflow\_data[,i],}\AttributeTok{lag.max=}\DecValTok{40}\NormalTok{,}\AttributeTok{main=}\FunctionTok{paste}\NormalTok{(}\StringTok{"Inflows HP"}\NormalTok{,i,}\AttributeTok{sep=}\StringTok{""}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-1.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-2.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-3.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-4.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-5.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-6.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-7.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-8.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-9.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-10.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-11.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-12.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-13.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-14.pdf}
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/acf-15.pdf}
+
+\hypertarget{trend-component}{%
+\subsection{Trend Component}\label{trend-component}}
+
+Let's identify and remove trend component like we leaned on the recorded
+videos for M4. You start by fitting a linear model to
+\(Y_t=\beta_0+\beta_1*t+\epsilon_t\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Create vector t}
+\NormalTok{t }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{nobs)}
+
+\CommentTok{\#Choose one hydro plant to study, as an exercise try to generalize this routine for all 15 HP}
+\CommentTok{\#from the plot HP4 seems to have a trend so let\textquotesingle{}s play with that column}
+\NormalTok{iHP}\OtherTok{=}\DecValTok{4}  \CommentTok{\#change this to chekc other HP}
+\CommentTok{\#prep\_data \textless{}{-} data.frame("Inflow"=inflow\_data[,iHP],"Time"=t)}
+
+\CommentTok{\#Fit a linear trend to TS of iHP}
+\NormalTok{linear\_trend\_model}\OtherTok{=}\FunctionTok{lm}\NormalTok{(inflow\_data[,iHP}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\textasciitilde{}}\NormalTok{t)  }
+\FunctionTok{summary}\NormalTok{(linear\_trend\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = inflow_data[, iHP + 1] ~ t)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2057.2  -691.1  -217.4   503.6  5786.1 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 637.5519    65.4250   9.745   <2e-16 ***
+## t             2.1836     0.1179  18.513   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1013 on 958 degrees of freedom
+## Multiple R-squared:  0.2635, Adjusted R-squared:  0.2627 
+## F-statistic: 342.7 on 1 and 958 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beta0}\OtherTok{=}\FunctionTok{as.numeric}\NormalTok{(linear\_trend\_model}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{])  }\CommentTok{\#first coefficient is the intercept term or beta0}
+\NormalTok{beta1}\OtherTok{=}\FunctionTok{as.numeric}\NormalTok{(linear\_trend\_model}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\NormalTok{])  }\CommentTok{\#second coefficient is the slope or beta1}
+
+\CommentTok{\#Let\textquotesingle{}s plot the time series with its trend line}
+\FunctionTok{ggplot}\NormalTok{(inflow\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{my\_date, }\AttributeTok{y=}\NormalTok{inflow\_data[,(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{iHP)])) }\SpecialCharTok{+}
+            \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color=}\StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+            \FunctionTok{ylab}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Inflow "}\NormalTok{,}\FunctionTok{colnames}\NormalTok{(inflow\_data)[(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{iHP)],}\AttributeTok{sep=}\StringTok{""}\NormalTok{)) }\SpecialCharTok{+}
+            \CommentTok{\#geom\_abline(intercept = beta0, slope = beta1, color="red")}
+            \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{color=}\StringTok{"red"}\NormalTok{,}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#remove the trend from series}
+\NormalTok{detrend\_inflow\_data }\OtherTok{\textless{}{-}}\NormalTok{ inflow\_data[,(iHP}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)]}\SpecialCharTok{{-}}\NormalTok{(beta0}\SpecialCharTok{+}\NormalTok{beta1}\SpecialCharTok{*}\NormalTok{t)}
+
+\CommentTok{\#Understanding what we did}
+\FunctionTok{ggplot}\NormalTok{(inflow\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{my\_date, }\AttributeTok{y=}\NormalTok{inflow\_data[,(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{iHP)])) }\SpecialCharTok{+}
+            \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color=}\StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+            \FunctionTok{ylab}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Inflow "}\NormalTok{,}\FunctionTok{colnames}\NormalTok{(inflow\_data)[(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{iHP)],}\AttributeTok{sep=}\StringTok{""}\NormalTok{)) }\SpecialCharTok{+}
+            \CommentTok{\#geom\_abline(intercept = beta0, slope = beta1, color="red")}
+            \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{color=}\StringTok{"red"}\NormalTok{,}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{) }\SpecialCharTok{+}
+            \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{detrend\_inflow\_data), }\AttributeTok{col=}\StringTok{"green"}\NormalTok{)}\SpecialCharTok{+}
+            \FunctionTok{geom\_smooth}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{detrend\_inflow\_data),}\AttributeTok{color=}\StringTok{"orange"}\NormalTok{,}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-8-1.pdf}
+Note that blue line is our original series, red lien is our trend, green
+line is our original series minus the trend or in other words the
+detrended series. And in orange is the trend line for the detrended
+series which has slope 0 meaning we were able to effectively eliminate
+the trend with a linear model.
+
+\hypertarget{seasonal-component}{%
+\subsection{Seasonal Component}\label{seasonal-component}}
+
+Now let's shift attention to the seasonal component.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Let\textquotesingle{}s choose another HP}
+\NormalTok{iHP}\OtherTok{=}\DecValTok{1} 
+
+\CommentTok{\#Use seasonal means model}
+\CommentTok{\#First create the seasonal dummies}
+\NormalTok{dummies }\OtherTok{\textless{}{-}} \FunctionTok{seasonaldummy}\NormalTok{(ts\_inflow\_data[,iHP])  }
+\CommentTok{\#this function only accepts ts object, no need to add one here because date }
+\CommentTok{\#object is not a column}
+
+\CommentTok{\#Then fit a linear model to the seasonal dummies}
+\NormalTok{seas\_means\_model}\OtherTok{=}\FunctionTok{lm}\NormalTok{(inflow\_data[,(iHP}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)]}\SpecialCharTok{\textasciitilde{}}\NormalTok{dummies)}
+\FunctionTok{summary}\NormalTok{(seas\_means\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = inflow_data[, (iHP + 1)] ~ dummies)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3414.4  -451.6   -45.7   336.6  5962.6 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   3482.7      114.5  30.418  < 2e-16 ***
+## dummiesJan    1202.3      161.9   7.425 2.51e-13 ***
+## dummiesFeb    1469.7      161.9   9.076  < 2e-16 ***
+## dummiesMar    1377.8      161.9   8.509  < 2e-16 ***
+## dummiesApr     241.8      161.9   1.493    0.136    
+## dummiesMay    -999.5      161.9  -6.172 9.96e-10 ***
+## dummiesJun   -1529.7      161.9  -9.447  < 2e-16 ***
+## dummiesJul   -1887.2      161.9 -11.655  < 2e-16 ***
+## dummiesAug   -2155.7      161.9 -13.313  < 2e-16 ***
+## dummiesSep   -2245.4      161.9 -13.867  < 2e-16 ***
+## dummiesOct   -2018.1      161.9 -12.464  < 2e-16 ***
+## dummiesNov   -1335.4      161.9  -8.247 5.39e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1024 on 948 degrees of freedom
+## Multiple R-squared:  0.6476, Adjusted R-squared:  0.6435 
+## F-statistic: 158.3 on 11 and 948 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Look at the regression coefficient. These will be the values of Beta}
+
+\CommentTok{\#Store regression coefficients}
+\NormalTok{beta\_int}\OtherTok{=}\NormalTok{seas\_means\_model}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{1}\NormalTok{]}
+\NormalTok{beta\_coeff}\OtherTok{=}\NormalTok{seas\_means\_model}\SpecialCharTok{$}\NormalTok{coefficients[}\DecValTok{2}\SpecialCharTok{:}\DecValTok{12}\NormalTok{]}
+
+\CommentTok{\#compute seasonal component}
+\NormalTok{inflow\_seas\_comp}\OtherTok{=}\FunctionTok{array}\NormalTok{(}\DecValTok{0}\NormalTok{,nobs)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nobs)\{}
+\NormalTok{  inflow\_seas\_comp[i]}\OtherTok{=}\NormalTok{(beta\_int}\SpecialCharTok{+}\NormalTok{beta\_coeff}\SpecialCharTok{\%*\%}\NormalTok{dummies[i,])}
+\NormalTok{\}}
+
+\CommentTok{\#Understanding what we did}
+\FunctionTok{ggplot}\NormalTok{(inflow\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{my\_date, }\AttributeTok{y=}\NormalTok{inflow\_data[,(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{iHP)])) }\SpecialCharTok{+}
+            \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color=}\StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+            \FunctionTok{ylab}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Inflow "}\NormalTok{,}\FunctionTok{colnames}\NormalTok{(inflow\_data)[(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{iHP)],}\AttributeTok{sep=}\StringTok{""}\NormalTok{)) }\SpecialCharTok{+}
+            \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{inflow\_seas\_comp), }\AttributeTok{col=}\StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Removing seasonal component}
+\NormalTok{deseason\_inflow\_data }\OtherTok{\textless{}{-}}\NormalTok{ inflow\_data[,(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{iHP)]}\SpecialCharTok{{-}}\NormalTok{inflow\_seas\_comp}
+
+\CommentTok{\#Understanding what we did}
+\FunctionTok{ggplot}\NormalTok{(inflow\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{my\_date, }\AttributeTok{y=}\NormalTok{inflow\_data[,(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{iHP)])) }\SpecialCharTok{+}
+            \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color=}\StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+            \FunctionTok{ylab}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Inflow "}\NormalTok{,}\FunctionTok{colnames}\NormalTok{(inflow\_data)[(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{iHP)],}\AttributeTok{sep=}\StringTok{""}\NormalTok{)) }\SpecialCharTok{+}
+            \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\NormalTok{deseason\_inflow\_data), }\AttributeTok{col=}\StringTok{"green"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-9-2.pdf}
+
+\hypertarget{stationarity-tests-in-r}{%
+\subsection{Stationarity Tests in R}\label{stationarity-tests-in-r}}
+
+Before we get started with the tests recall that for the year 2011 we
+only have data until Aug 2011. Let's filter our dataset to remove that
+last year.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ts\_inflow\_data }\OtherTok{\textless{}{-}} \FunctionTok{as.ts}\NormalTok{(ts\_inflow\_data[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{960}\NormalTok{,])}
+\NormalTok{my\_date }\OtherTok{\textless{}{-}}\NormalTok{ my\_date[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{960}\NormalTok{]}
+
+\CommentTok{\#create new df}
+\NormalTok{inflow\_data\_new }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(my\_date, ts\_inflow\_data)}
+
+\CommentTok{\#note that there are more elegant ways to do that using filter function from package dplyr}
+\CommentTok{\#Let me know if you would like to learn how to use them}
+\end{Highlighting}
+\end{Shaded}
+
+Some test only work for non-seasonal data. SO let's create another
+series with yearly averages for inflow.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{iHP}\OtherTok{=}\DecValTok{1}
+\CommentTok{\#Group data in yearly steps instances}
+\NormalTok{inflow\_data\_matrix }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(ts\_inflow\_data[,iHP],}\AttributeTok{byrow=}\ConstantTok{FALSE}\NormalTok{,}\AttributeTok{nrow=}\DecValTok{12}\NormalTok{)}
+\NormalTok{inflow\_data\_yearly }\OtherTok{\textless{}{-}} \FunctionTok{colMeans}\NormalTok{(inflow\_data\_matrix)}
+
+\FunctionTok{library}\NormalTok{(dplyr)  }\CommentTok{\#move this to package chunk later}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## 载入程辑包：'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_year }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{year}\NormalTok{(}\FunctionTok{first}\NormalTok{(my\_date))}\SpecialCharTok{:}\FunctionTok{year}\NormalTok{(}\FunctionTok{last}\NormalTok{(my\_date)))}
+
+\NormalTok{inflow\_data\_new\_yearly }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(my\_year, inflow\_data\_yearly)}
+
+\FunctionTok{ggplot}\NormalTok{(inflow\_data\_new\_yearly, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{my\_year, }\AttributeTok{y=}\NormalTok{inflow\_data\_yearly)) }\SpecialCharTok{+}
+            \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color=}\StringTok{"blue"}\NormalTok{) }\SpecialCharTok{+}
+            \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{color=}\StringTok{"red"}\NormalTok{,}\AttributeTok{method=}\StringTok{"lm"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{M3_TrendSeasonality_Complete_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\hypertarget{mann-kendall}{%
+\subsubsection{Mann Kendall}\label{mann-kendall}}
+
+Check for deterministic trend.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Since I have seasonal data I cannot use the simple MannKendall()}
+\CommentTok{\#another example of functions that need a ts object}
+\NormalTok{SMKtest }\OtherTok{\textless{}{-}} \FunctionTok{SeasonalMannKendall}\NormalTok{(ts\_inflow\_data[,iHP])}
+\FunctionTok{print}\NormalTok{(}\StringTok{"Results for Seasonal Mann Kendall /n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Results for Seasonal Mann Kendall /n"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{summary}\NormalTok{(SMKtest))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Score =  37242 , Var(Score) = 98457224
+## denominator =  460269
+## tau = 0.0809, 2-sided pvalue =0.00017455
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Use yearly date to run Mann Kendall}
+\FunctionTok{print}\NormalTok{(}\StringTok{"Results of Mann Kendall on average yearly series"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Results of Mann Kendall on average yearly series"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{summary}\NormalTok{(}\FunctionTok{MannKendall}\NormalTok{(inflow\_data\_yearly)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Score =  618 , Var(Score) = 57933.33
+## denominator =  3160
+## tau = 0.196, 2-sided pvalue =0.010364
+## NULL
+\end{verbatim}
+
+\hypertarget{spearman-correlation-test}{%
+\subsubsection{Spearman Correlation
+test}\label{spearman-correlation-test}}
+
+Also check for deterministic trend, for non-seasonal data only.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Deterministic trend with Spearman Correlation Test}
+\FunctionTok{print}\NormalTok{(}\StringTok{"Results from Spearman Correlation"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Results from Spearman Correlation"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sp\_rho}\OtherTok{=}\FunctionTok{cor}\NormalTok{(inflow\_data\_yearly,my\_year,}\AttributeTok{method=}\StringTok{"spearman"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(sp\_rho)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2847398
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#with cor.test you can get test statistics}
+\NormalTok{sp\_rho}\OtherTok{=}\FunctionTok{cor.test}\NormalTok{(inflow\_data\_yearly,my\_year,}\AttributeTok{method=}\StringTok{"spearman"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(sp\_rho)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Spearman's rank correlation rho
+## 
+## data:  inflow_data_yearly and my_year
+## S = 61026, p-value = 0.01069
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.2847398
+\end{verbatim}
+
+\hypertarget{augmented-dickey-fuller-adf}{%
+\subsubsection{Augmented Dickey Fuller
+(ADF)}\label{augmented-dickey-fuller-adf}}
+
+Used to detect stochastic trend.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Null hypothesis is that data has a unit root}
+\FunctionTok{print}\NormalTok{(}\StringTok{"Results for ADF test/n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Results for ADF test/n"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{adf.test}\NormalTok{(ts\_inflow\_data[,iHP],}\AttributeTok{alternative =} \StringTok{"stationary"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in adf.test(ts_inflow_data[, iHP], alternative = "stationary"): p-value
+## smaller than printed p-value
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  ts_inflow_data[, iHP]
+## Dickey-Fuller = -7.07, Lag order = 9, p-value = 0.01
+## alternative hypothesis: stationary
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Now let\textquotesingle{}s try the yearly data}
+\FunctionTok{print}\NormalTok{(}\StringTok{"Results for ADF test on yearly data/n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Results for ADF test on yearly data/n"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{adf.test}\NormalTok{(inflow\_data\_yearly, }\AttributeTok{alternative =} \StringTok{"stationary"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  inflow_data_yearly
+## Dickey-Fuller = -3.5308, Lag order = 4, p-value = 0.04481
+## alternative hypothesis: stationary
+\end{verbatim}
+
+\#\#Exercise
+
+Run the stationarity tests for the other variables HP2, HP3, \ldots{}
+
+\end{document}
