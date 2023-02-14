@@ -60,6 +60,22 @@ head(energy_data1)
 ### Q1
 Create a plot window that has one row and three columns. And then for each object on your data frame, fill the plot window with time series plot, ACF and PACF. You may use the some code form A2, but I want all three plots on the same window this time. (Hint: use par() function)
 
+```{r}
+ts_energy_data <- ts(energy_data1[,2:4],frequency=12,start=c(1973,1))
+
+ts_energy_data
+```
+
+```{r acf}
+#Acf and Pacf for HP1
+for(i in 1:nenergy){
+  par(mfrow=c(1,2))  #place plot side by side
+  Acf(ts_energy_data[,i],lag.max=40,main=paste("Inflows HP",i,sep="")) 
+  Pacf(ts_energy_data[,i],lag.max=40,main=paste("Inflows HP",i,sep=""))
+}
+
+```
+
 ### Q2
 From the plot in Q1, do the series Total Biomass Energy Production, Total Renewable Energy Production, Hydroelectric Power Consumption appear to have a trend? If yes, what kind of trend?
 
