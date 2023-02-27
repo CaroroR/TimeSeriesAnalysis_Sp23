@@ -7,9 +7,6 @@ geometry: margin=2.54cm
 editor_options: 
   chunk_output_type: console
 ---
-```{r}
-
-```
   
 ## Directions
   
@@ -41,42 +38,43 @@ library(dplyr)
 library(Kendall)
 ```
 
-##Trend Component
+```{r}
+#Load/install required package here
+library(xlsx)
+#Importing data set - using xlsx package
+energy_data <- read.xlsx(file="./Data/Table_10.1_Renewable_Energy_Production_and_Consumption_by_Source.xlsx",
+header=FALSE,startRow = 13,
+sheetIndex=1) #startRow is equivalent to skip on read.table
+#Now let's extract the column names from row 11 only
+read_col_names <- read.xlsx(file="./Data/Table_10.1_Renewable_Energy_Production_and_Consumption_by_Source.xlsx",
+header=FALSE,startRow = 11,endRow=11,sheetIndex=1)
+
+colnames(energy_data) <- read_col_names
+head(energy_data)
+```
 
 ```{r}
-#Importing data set
-energy_data <- read.csv(file="./Data/Table_10.1_Renewable_Energy_Production_and_Consumption_by_Source-Edit.csv", header = TRUE, dec = ".", sep=",",stringsAsFactors = TRUE) 
-
-#check that colnames are already stored because we deleted the units line so we were able to automatically import it
-colnames(energy_data)
-head(energy_data)
-
-#Use dplyr select
-energy_data1 <- energy_data %>% select(1,4,5,6) 
-
-nenergy <- ncol(energy_data1)-1
-nobs <- nrow(energy_data1) 
-
-head(energy_data1)
+data=energy_data[,c(1,4:6)]
+nobs=nrow(data)
+t<-1:nobs
+tsdata=ts(data[t,2:4], frequency=12,start=c(1973,1))
+#frequency=12 because of monthly data. Data starts from Jan 1973.
+head(tsdata)
 ```
+
+##Trend Component
 
 ### Q1
 Create a plot window that has one row and three columns. And then for each object on your data frame, fill the plot window with time series plot, ACF and PACF. You may use the some code form A2, but I want all three plots on the same window this time. (Hint: use par() function)
 
 ```{r}
-ts_energy_data <- ts(energy_data1[,2:4],frequency=12,start=c(1973,1))
-
-ts_energy_data
-```
-
-```{r acf}
-#Acf and Pacf for HP1
-for(i in 1:nenergy){
-  par(mfrow=c(1,2))  #place plot side by side
-  Acf(ts_energy_data[,i],lag.max=40,main=paste("Inflows HP",i,sep="")) 
-  Pacf(ts_energy_data[,i],lag.max=40,main=paste("Inflows HP",i,sep=""))
+par(mfrow=c(1,3))
+for(i in 1:3){
+plot(energy_data$Month,tsdata[,i],type="l",col="blue",
+ylab="Energy [Trillion Btu]",xlab=NA,main=colnames(tsdata)[i])
+acf(tsdata[,i],lag.max=40, plot=TRUE,main=colnames(tsdata)[i])
+pacf(tsdata[,i],lag.max=40, plot=TRUE,main=colnames(tsdata)[i])
 }
-
 ```
 
 ### Q2
@@ -84,12 +82,115 @@ From the plot in Q1, do the series Total Biomass Energy Production, Total Renewa
 
 ### Q3
 Use the *lm()* function to fit a linear trend to the three time series. Ask R to print the summary of the regression. Interpret the regression output, i.e., slope and intercept. Save the regression coefficients for further analysis.
- 
+
+```{r}
+regmodel_biomass=lm(tsdata[,1]~t,cbind(tsdata[,1],t))
+#save the regression coefficients for further analysis
+beta0_biomass=regmodel_biomass$coefficients[1]
+beta1_biomass=regmodel_biomass$coefficients[2]
+print(summary(regmodel_biomass))
+
+```
+
+```{r}
+regmodel_renewable=lm(tsdata[,2]~t,cbind(tsdata[,2],t))
+beta0_renewable=regmodel_renewable$coefficients[1]
+beta1_renewable=regmodel_renewable$coefficients[2]
+print(summary(regmodel_renewable))
+```
+
+```{r}
+regmodel_hydroelec=lm(tsdata[,3]~t,cbind(tsdata[,3],t))
+beta0_hydroelec=regmodel_hydroelec$coefficients[1]
+beta1_hydroelec=regmodel_hydroelec$coefficients[2]
+print(summary(regmodel_hydroelec))
+```
+
+
+
 ### Q4
 Use the regression coefficients from Q3 to detrend the series. Plot the detrended series and compare with the plots from Q1. What happened? Did anything change?
 
+```{r}
+biomass_detrend=array(0,nobs) #fill value 0 into the array.
+for(i in t){
+biomass_detrend[i]=tsdata[i,1]-(beta0_biomass+beta1_biomass*i)
+}
+#Turn biomass_detrend into time series.
+biomass_detrend=ts(biomass_detrend, frequency=12,start=c(1973,1))
+par(mfrow=c(1,1))
+#the plot from part (d)
+ggplot(energy_data,aes(x=Month))+
+geom_line(aes(y=`Total Biomass Energy Production`),col="blue")+
+geom_line(aes(y=biomass_detrend),col="red") +
+ylab("Energy Production in Trillion Btu") +
+ggtitle("Total Biomass Energy Production")
+
+```
+
+```{r}
+autoplot(tsdata[,1]) +
+autolayer(biomass_detrend) +
+ylab("Energy Production in Trillion Btu") +
+ggtitle("Total Biomass Energy Production")
+```
+
+```{r}
+renewable_detrend=array(0,nobs)
+for(i in t){
+renewable_detrend[i]=tsdata[i,2]-(beta0_renewable+beta1_renewable*i)
+}
+renewable_detrend=ts(renewable_detrend, frequency=12,start=c(1973,1))
+#the plot from part (d)
+autoplot(tsdata[,2]) +
+autolayer(renewable_detrend) +
+ylab("Energy Production in Trillion Btu") +
+ggtitle("Total Renewable Energy Production")
+
+```
+
+```{r}
+hydroelec_detrend=array(0,nobs)
+for(i in t){
+hydroelec_detrend[i]=tsdata[i,3]-(beta0_hydroelec+beta1_hydroelec*i)
+}
+hydroelec_detrend=ts(hydroelec_detrend,frequency=12,start=c(1973,1))
+#the plot from part (d)
+autoplot(tsdata[,3]) +
+autolayer(hydroelec_detrend) +
+ylab("Energy Production in Trillion Btu") +
+ggtitle("Hydroelectric Power Consumption")
+
+```
+
+
 ### Q5
 Plot ACF and PACF for the detrended series and compare with the plots from Q1. Did the plots change? How?
+
+```{r}
+par(mfrow=c(2,2))
+acf(tsdata[,1],lag.max=40, plot=TRUE,main=colnames(tsdata)[1])
+acf(biomass_detrend,lag.max=40,plot=TRUE, main="Detrended Biomass Energy Production")
+pacf(tsdata[,1],lag.max=40, plot=TRUE,main=colnames(tsdata)[1])
+pacf(biomass_detrend,lag.max=40,plot=TRUE, main="Detrended Biomass Energy Production")
+
+```
+
+```{r}
+acf(tsdata[,2],lag.max=40, plot=TRUE,main=colnames(tsdata)[2])
+acf(renewable_detrend,lag.max=40,plot=TRUE,main="Detrended Renewable Energy Production")
+pacf(tsdata[,2],lag.max=40, plot=TRUE,main=colnames(tsdata)[2])
+pacf(renewable_detrend,lag.max=40,plot=TRUE,main="Detrended Renewable Energy Production")
+```
+
+```{r}
+acf(tsdata[,3],lag.max=40, plot=TRUE,main=colnames(tsdata)[3])
+acf(hydroelec_detrend,lag.max=40,plot=TRUE,main="Detrended Hydroelectric Energy Consumption")
+pacf(tsdata[,3],lag.max=40, plot=TRUE,main=colnames(tsdata)[3])
+pacf(hydroelec_detrend,lag.max=40,plot=TRUE,main="Detrended Hydroelectric Energy Consumption")
+```
+
+
 
 ## Seasonal Component
 
@@ -98,10 +199,114 @@ Set aside the detrended series and consider the original series again from Q1 to
 ### Q6
 Do the series seem to have a seasonal trend? Which serie/series? Use function *lm()* to fit a seasonal means model (i.e. using the seasonal dummies) to this/these time series. Ask R to print the summary of the regression. Interpret the regression output. Save the regression coefficients for further analysis.
 
+```{r}
+# Biomass Production
+dummies=seasonaldummy(tsdata[,1]) #This function only
+#works if Y is a ts object and if you specify the frequency | precondition
+reg_dummies_1=lm(tsdata[,1]~dummies,)
+print(summary(reg_dummies_1))
+
+```
+
+```{r}
+#Store the regression coefficients
+beta_int_1=reg_dummies_1$coefficients[1]
+beta_coeff_1=reg_dummies_1$coefficients[2:12]
+# Renewable Production
+dummies=seasonaldummy(tsdata[,2])
+reg_dummies_2=lm(tsdata[,2]~dummies)
+print(summary(reg_dummies_2))
+
+```
+
+```{r}
+#Store the regression coefficients
+beta_int_2=reg_dummies_2$coefficients[1]
+beta_coeff_2=reg_dummies_2$coefficients[2:12]
+# Hydroelectricity Consumption
+dummies=seasonaldummy(tsdata[,3])
+reg_dummies_3=lm(tsdata[,3]~dummies)
+print(summary(reg_dummies_3))
+```
+
+```{r}
+#Store the regression coefficients
+beta_int_3=reg_dummies_3$coefficients[1]
+beta_coeff_3=reg_dummies_3$coefficients[2:12]
+
+```
+
+
+
 ### Q7
 Use the regression coefficients from Q6 to deseason the series. Plot the deseason series and compare with the plots from part Q1. Did anything change?
 
+```{r}
+# Biomass Production
+biomass_deseason=array(0,nobs)
+for(i in 1:nobs){
+biomass_deseason[i]=tsdata[i,1]-(beta_int_1+beta_coeff_1%*%dummies[i,])
+#The symbol %*% means inner product
+}
+biomass_deseason=ts(biomass_deseason,frequency=12,start=c(1973,1))
+autoplot(tsdata[,1],main="Deseasoned Series of Biomass Production")+
+autolayer(biomass_deseason)
+```
+
+```{r}
+# Renewable Production
+renew_deseason=array(0,nobs)
+for(i in 1:nobs){
+renew_deseason[i]=tsdata[i,2]-(beta_int_2+beta_coeff_2%*%dummies[i,])
+#The symbol %*% means inner product
+}
+renew_deseason=ts(renew_deseason,frequency=12,start=c(1973,1))
+autoplot(tsdata[,2],main="Deseasoned Series of Renewable Production")+
+autolayer(renew_deseason)
+
+```
+
+```{r}
+# Hydroelectricity consumption
+hydro_deseason=array(0,nobs)
+for(i in 1:nobs){
+hydro_deseason[i]=tsdata[i,3]-(beta_int_3+beta_coeff_3%*%dummies[i,])
+#The symbol %*% means inner product
+}
+hydro_deseason=ts(hydro_deseason,frequency=12,start=c(1973,1))
+autoplot(tsdata[,3],main="Deseasoned Series of Hydroelectric Consumption")+
+autolayer(hydro_deseason)
+
+```
+
+
 ### Q8
 Plot ACF and PACF for the deseason series and compare with the plots from Q1. Did the plots change? How?
+
+```{r}
+par(mfrow=c(2,2))
+acf(tsdata[,1],lag.max=40, plot=TRUE,main=colnames(tsdata)[1])
+acf(biomass_deseason,lag.max=40,plot=TRUE, main="Deseason Biomass Energy Production")
+pacf(tsdata[,1],lag.max=40, plot=TRUE,main=colnames(tsdata)[1])
+pacf(biomass_deseason,lag.max=40,plot=TRUE, main="Deseason Biomass Energy Production")
+```
+
+```{r}
+acf(tsdata[,2],lag.max=40, plot=TRUE,main=colnames(tsdata)[2])
+acf(renew_deseason,lag.max=40,plot=TRUE,main="Deseason Renewable Energy Production")
+pacf(tsdata[,2],lag.max=40, plot=TRUE,main=colnames(tsdata)[2])
+pacf(renew_deseason,lag.max=40,plot=TRUE,main="Deseason Renewable Energy Production")
+
+```
+
+```{r}
+acf(tsdata[,3],lag.max=40, plot=TRUE,main=colnames(tsdata)[3])
+acf(hydro_deseason,lag.max=40,plot=TRUE,main="Deseason Hydroelectric Energy Consumption")
+pacf(tsdata[,3],lag.max=40, plot=TRUE,main=colnames(tsdata)[3])
+pacf(hydro_deseason,lag.max=40,plot=TRUE,main="Deseason Hydroelectric Energy Consumption")
+```
+
+
+
 
 
