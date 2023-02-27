@@ -39,7 +39,7 @@ Today we will work with wind speed data.
 ```{r}
 
 #Importing time series data from text file#
-wind_data <- read.csv(file="./Data/Wind_Speed_PortArthurTX_Processed.csv",header=TRUE,stringsAsFactors = TRUE)
+wind_data <- read.csv(file="../Data/Wind_Speed_PortArthurTX_Processed.csv",header=TRUE,stringsAsFactors = TRUE)
 
 #creating data object
 wind_data$DATE <- ym(wind_data$DATE)
@@ -96,7 +96,7 @@ The random component is the time series without seasonal and trend component. Le
 
 Additional info on decompose()
 
-1) You have two options: alternative and multiplicative. Multiplicative models exhibit a change in frequency over time.
+1) You have two options: additive and multiplicative. Multiplicative models exhibit a change in frequency over time.
 
 2) The trend is not a straight line because it uses a moving average method to detect trend. 
 
