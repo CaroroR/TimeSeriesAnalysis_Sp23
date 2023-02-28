@@ -1,10 +1,12 @@
 ---
 title: "ENV 790.30 - Time Series Analysis for Energy Data | Spring 2023"
-subtitle: "Assignment 5 - Due date 02/27/23"
 author: "Student Name"
-output: pdf_document
+subtitle: "Assignment 5 - Due date 02/27/23"
+output:
+  html_document:
+    df_print: paged
 geometry: margin=2.54cm
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
