@@ -28,8 +28,9 @@ library(tseries)
 library(ggplot2)
 library(Kendall)
 library(lubridate)
+library(dplyr)
 library(tidyverse)  #load this package so yon clean the data frame using pipes
-
+library(naniar)
 
 ```
 
@@ -57,6 +58,24 @@ nvar=ncol(energy_data)
 For this assignment you will work only with the following columns: Solar Energy Consumption and Wind Energy Consumption. Create a data frame structure with these two time series only and the Date column. Drop the rows with *Not Available* and convert the columns to numeric. You can use filtering to eliminate the initial rows or convert to numeric and then use the drop_na() function. If you are familiar with pipes for data wrangling, try using it!
 
 ```{r}
+#Use dplyr select
+energy_data1 <- energy_data %>% select(1,8,9) 
+
+na_strings <- c("NA", "N A", "N / A", "N/A", "N/ A", "Not Available", "NOt available")
+energy_data1 <-
+  energy_data1 %>%
+  replace_with_na_all(condition = ~.x %in% na_strings)
+
+energy_data1[] <- lapply(energy_data1, as.numeric)
+
+energy_data1 <- mutate_all(energy_data1, ~replace_na(.,0))
+
+
+
+nenergy <- ncol(energy_data1)-1
+nobs <- nrow(energy_data1) 
+
+head(energy_data1)
 
 
 ```
