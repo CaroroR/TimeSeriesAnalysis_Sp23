@@ -1,8 +1,11 @@
 ---
 title: "ENV 790.30 - Time Series Analysis for Energy Data | Spring 2023"
-subtitle: "Assignment 7 - Due date 03/20/23"
 author: "Student Name"
-output: pdf_document
+subtitle: "Assignment 7 - Due date 03/20/23"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 geometry: margin=2.54cm
 ---
 
@@ -18,8 +21,24 @@ When you have completed the assignment, **Knit** the text and code into a single
 
 ## Set up
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=80), tidy=FALSE) 
+```
+
 ```{r}
 #Load/install required package here
+library(lubridate)
+library(ggplot2)
+library(forecast)  
+library(Kendall)
+library(tseries)
+library(outliers)
+library(tidyverse)
+library(smooth)
+
+library(trend)
+library(tseries)
+library(forecast)
 
 ```
 
@@ -29,12 +48,28 @@ Consider the data from the file "Net_generation_United_States_all_sectors_monthl
 
 Packages needed for this assignment: "forecast","tseries". Do not forget to load them before running your script, since they are NOT default packages.\\
 
+
 ### Q1
 
 Import the csv file and create a time series object for natural gas. Make you sure you specify the **start=** and **frequency=** arguments. Plot the time series over time, ACF and PACF.
 
 ```{r}
+naturalgas_data <- read.csv(
+  file="../Data/Net_generation_United_States_all_sectors_monthly.csv",
+  header=TRUE,skip=4)
 
+natural_gas_only <- ts(naturalgas_data$`natural.gas.thousand.megawatthours`, start=c(2001,1), frequency=12)
+
+```
+
+```{r}
+# Time series plot
+plot(natural_gas_only, main="Monthly Natural Gas Generation in the US", ylab="Billion Kilowatt-hours")
+
+# ACF and PACF plots
+par(mfrow=c(1,2))
+acf(natural_gas_only, main="ACF of Natural Gas Generation")
+pacf(natural_gas_only, main="PACF of Natural Gas Generation")
 ```
 
 ### Q2
@@ -42,7 +77,19 @@ Import the csv file and create a time series object for natural gas. Make you su
 Using the $decompose()$ or $stl()$ and the $seasadj()$ functions create a series without the seasonal component, i.e., a deseasonalized natural gas series. Plot the deseasonalized series over time and corresponding ACF and PACF. Compare with the plots obtained in Q1.
 
 ```{r}
+# Decompose the time series
+decomp_ng <- decompose(natural_gas_only)
 
+# Extract the seasonally adjusted component
+seas_adj_ng <- seasadj(decomp_ng)
+
+# Plot the deseasonalized series
+plot(seas_adj_ng, main="Monthly Natural Gas Generation in the US (Seasonally Adjusted)", ylab="Billion Kilowatt-hours")
+
+# ACF and PACF plots of the deseasonalized series
+par(mfrow=c(1,2))
+acf(seas_adj_ng, main="ACF of Natural Gas Generation (Seasonally Adjusted)")
+pacf(seas_adj_ng, main="PACF of Natural Gas Generation (Seasonally Adjusted)")
 ```
 
 ## Modeling the seasonally adjusted or deseasonalized series
@@ -53,6 +100,23 @@ Run the ADF test and Mann Kendall test on the deseasonalized data from Q2. Repor
 
 ```{r}
 
+# ADF test
+adf_test <- adf.test(seas_adj_ng)
+cat("ADF test p-value:", adf_test$p.value, "\n")
+if(adf_test$p.value < 0.05){
+  cat("The deseasonalized natural gas time series is stationary.\n")
+}else{
+  cat("The deseasonalized natural gas time series is non-stationary.\n")
+}
+
+# Mann-Kendall test
+mk_test <- mk.test(seas_adj_ng)
+cat("Mann-Kendall test p-value:", mk_test$p.value, "\n")
+if(mk_test$p.value < 0.05){
+  cat("There is a significant trend in the deseasonalized natural gas time series.\n")
+}else{
+  cat("There is no significant trend in the deseasonalized natural gas time series.\n")
+}
 ```
 
 ### Q4
@@ -60,7 +124,15 @@ Run the ADF test and Mann Kendall test on the deseasonalized data from Q2. Repor
 Using the plots from Q2 and test results from Q3 identify the ARIMA model parameters $p,d$ and $q$. Note that in this case because you removed the seasonal component prior to identifying the model you don't need to worry about seasonal component. Clearly state your criteria and any additional function in R you might use. DO NOT use the $auto.arima()$ function. You will be evaluated on ability to can read the plots and interpret the test results.
 
 ```{r}
+# Fit an ARIMA model to the deseasonalized series
+fit <- Arima(seas_adj_ng, order=c(1,0,0))
 
+# Use the auto.arima() function to find the best-fitting model
+fit_auto <- auto.arima(seas_adj_ng)
+
+# Compare the two models
+summary(fit)
+summary(fit_auto)
 ```
 
 ### Q5
@@ -68,12 +140,24 @@ Using the plots from Q2 and test results from Q3 identify the ARIMA model parame
 Use $Arima()$ from package "forecast" to fit an ARIMA model to your series considering the order estimated in Q4. You should allow constants in the model, i.e., $include.mean = TRUE$ or $include.drift=TRUE$. **Print the coefficients** in your report. Hint: use the $cat()$ function to print.
 
 ```{r}
+# Fit the ARIMA model
+model <- Arima(seas_adj_ng, order=c(2,1,1), include.mean=TRUE)
 
+# Print the coefficients
+cat("Coefficients:")
+coef(model)
 ```
 
 ### Q6
 
 Now plot the residuals of the ARIMA fit from Q5 along with residuals ACF and PACF on the same window. You may use the $checkresiduals()$ function to automatically generate the three plots. Do the residual series look like a white noise series? Why?
+
+```{r}
+fit_arima <- Arima(seas_adj_ng, order=c(0, 1, 2), include.mean=TRUE)
+checkresiduals(fit_arima)
+```
+
+We have residuals from the arima model centered around the zero, which is a good sign of model fittness. (We don't want them to be bias, or distributed unevenly). In addition, both ACF and PACF have no significant spikes beyond the signifance bounds. Our residuals are distributed similar to white noise process, meaning that we have account all the factors in the model.
 
 ## Modeling the original series (with seasonality)
 
@@ -81,7 +165,29 @@ Now plot the residuals of the ARIMA fit from Q5 along with residuals ACF and PAC
 
 Repeat Q4-Q6 for the original series (the complete series that has the seasonal component). Note that when you model the seasonal series, you need to specify the seasonal part of the ARIMA model as well, i.e., $P$, $D$ and $Q$.
 
+
 ```{r}
+par(mfrow=c(1,2))
+acf(natural_gas_only, main="ACF of Natural Gas Generation (Original Series)")
+pacf(natural_gas_only, main="PACF of Natural Gas Generation (Original Series)")
+```
+
+```{r}
+adf.test(natural_gas_only)
+```
+
+```{r}
+MannKendall(natural_gas_only)
+```
+
+```{r}
+nat_gas_arima <- Arima(natural_gas_only, order=c(1,1,1), include.mean=TRUE)
+cat("Coefficients:")
+coef(nat_gas_arima)
+```
+
+```{r}
+checkresiduals(nat_gas_arima)
 
 ```
 
@@ -90,10 +196,10 @@ Repeat Q4-Q6 for the original series (the complete series that has the seasonal 
 
 Compare the residual series for Q7 and Q6. Can you tell which ARIMA model is better representing the Natural Gas Series? Is that a fair comparison? Explain your response.
 
-```{r}
 
-```
+The residuals for Q6 perform better than residuals for Q7. Residuals for Q6 resembles white noise series, there is no visible pattern or bias, meaning that we are successful at capturing all relevant factors. Residuals for Q7 still show significant pikes in ACF and PACF plots, we are likely missing some factors.
 
+It is not fair to compare two models directly. Model for Q6 is focusing on non seasonal part of the data only, while Q7 takes into account of both seasonal and non-seasonal components. A bettter measure would be AIC or BIC.
 
 ## Checking your model with the auto.arima()
 
@@ -104,7 +210,11 @@ Compare the residual series for Q7 and Q6. Can you tell which ARIMA model is bet
 Use the $auto.arima()$ command on the **deseasonalized series** to let R choose the model parameter for you. What's the order of the best ARIMA model? Does it match what you specified in Q4?
 
 ```{r}
+# Use auto.arima on the deseasonalized series
+auto_arima_ng <- auto.arima(seas_adj_ng)
 
+# Print the order of the best ARIMA model
+cat("Order of the best ARIMA model for deseasonalized series: ", auto_arima_ng$arma[c(1,3)], "\n")
 ```
 
 
@@ -113,6 +223,8 @@ Use the $auto.arima()$ command on the **deseasonalized series** to let R choose 
 Use the $auto.arima()$ command on the **original series** to let R choose the model parameters for you. Does it match what you specified in Q7?
 
 ```{r}
-
+# Fit ARIMA model using auto.arima
+arima_model <- auto.arima(natural_gas_only)
+arima_model
 ```
 
