@@ -1,6 +1,6 @@
 ---
 title: "TSA: Forecasting Competition Instructions"
-author: "Luana Lima"
+author: "Caroline_Ren"
 output: pdf_document
 always_allow_html: true
 editor_options: 
@@ -22,6 +22,8 @@ editor_options:
 ## LINK YOUR REPO TO YOUR LOCAL DRIVE WITH RSTUDIO
  
 1. Click the "Clone or download" button for your repository and then the "copy" icon. Make sure the box header lists "Clone with HTTPS" rather than "Clone with SSH." If not, click the "Use HTTPS" button and then copy the link.
+
+https://github.com/hcipparone/CipparoneRen_ENV790_TSA_Competition_S2023.git
 
 2. Launch RStudio and select "New Project" from the File menu. Choose "Version Control" and "Git."
 
