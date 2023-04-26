@@ -1,6 +1,6 @@
 ---
 title: "TSA - Final Project Instructions"
-author: "Luana Lima"
+author: "Caroline Ren and Jon Ekberg"
 output: pdf_document
 geometry: margin=2.54cm
 ---
